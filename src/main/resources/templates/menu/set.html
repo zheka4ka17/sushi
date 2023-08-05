@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Наборы</title>
+</head>
+<body>
+<div th:each="set: ${sets}">
+  <a th:href="@{/menu/{id}(id=${set.getId()})}"
+     th:text="${set.title + ', ' +set.volume+ ', ' +set.price}">user</a>
+
+  </p>
+</div>
+
+</body>
+</html>

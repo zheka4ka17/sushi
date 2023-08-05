@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu</title>
+</head>
+<body>
+<form method="get">
+    <input type="text" name="findTitle" id="findTitle" placeholder="Найти по названию">
+    <input type="submit" value="Найти">
+</form>
+
+ <div th:if="${products}">
+     <div th:each="product :${products}">
+         <a th:href="@{/menu/{id}(id=${product.getId()})}"
+            th:text="${product.title + ', ' + product.description+ ', ' +product.volume+ ', ' +product.price}">user</a>
+     </div>
+ </div>
+
+<a href="/menu/sushi">Суши</a>
+<a href="/menu/sets">Наборы</a>
+<a href="/menu/sauce">Соусы</a>
+<a href="/menu/drinks">Напитки</a>
+<a href="/menu/other">Добавки</a>
+
+</body>
+</html>
