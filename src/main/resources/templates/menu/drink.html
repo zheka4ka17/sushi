@@ -8,7 +8,7 @@
 <div th:each="drink: ${drinks}">
   <a th:href="@{/menu/{id}(id=${drink.getId()})}"
      th:text="${drink.title + ', ' +drink.volume+ ', ' +drink.price}">user</a>
-  </p>
+  <img th:src="@{${drink.image}}">
 </div>
 
 </body>

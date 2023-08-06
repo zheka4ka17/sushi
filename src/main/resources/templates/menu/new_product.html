@@ -14,6 +14,8 @@
   <input type="text" th:field="*{volume}" id="volume" placeholder="Объем или масса"></br>
     <label for="price">Введите цену</label>
   <input type="text" th:field="*{price}" id="price" placeholder="Цена"></br>
+    <label for="image">Введите ссылку на фото</label>
+    <input type="text" th:field="*{image}" id="image" placeholder="Фото"></br>
     <label for="price">Выберите тип продукта</label>
     <select th:object="${newProduct}" th:field="*{type}" th:id="type">
         <option th:each="type: ${types}" th:value="${type.getId()}" th:text="${type.title}">

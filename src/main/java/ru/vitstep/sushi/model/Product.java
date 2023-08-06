@@ -23,4 +23,5 @@ public class Product {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "type_id", referencedColumnName = "id")
     private Type type;
+    private String image;
 }

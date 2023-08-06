@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ваша информация</title>
+</head>
+<body>
+
+<a th:href="@{{id}/edit(id=${user.id})}">Редактировать</a>
+
+
+<p th:text="${user.name}"></p>
+<p th:text="${user.surname}"></p>
+<p th:text="${user.password}"></p>
+<p th:text="${user.email}"></p>
+<p th:text="${user.phoneNumber}"></p>
+<p th:text="${user.role}"></p>
+
+
+
+
+</body>
+</html>

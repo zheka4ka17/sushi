@@ -8,8 +8,7 @@
 <div th:each="set: ${sets}">
   <a th:href="@{/menu/{id}(id=${set.getId()})}"
      th:text="${set.title + ', ' +set.volume+ ', ' +set.price}">user</a>
-
-  </p>
+  <img th:src="@{${set.image}}">
 </div>
 
 </body>

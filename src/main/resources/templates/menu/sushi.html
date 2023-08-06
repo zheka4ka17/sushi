@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Sushi</title>
+    <title>Суши</title>
 </head>
 <body>
 <div th:each="sushi: ${sushis}">
     <a th:href="@{/menu/{id}(id=${sushi.getId()})}"
          th:text="${sushi.title + ', ' +sushi.volume+ ', ' +sushi.price}">user</a>
-
+    <img th:src="@{${sushi.image}}">
 
 </div>
 

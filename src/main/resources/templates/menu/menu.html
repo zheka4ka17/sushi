@@ -14,6 +14,7 @@
      <div th:each="product :${products}">
          <a th:href="@{/menu/{id}(id=${product.getId()})}"
             th:text="${product.title + ', ' + product.description+ ', ' +product.volume+ ', ' +product.price}">user</a>
+         <img th:src="@{${product.image}}">
      </div>
  </div>
 
