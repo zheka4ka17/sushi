@@ -13,11 +13,8 @@ public class MainController {
         this.productService = productService;
     }
 
-    @GetMapping()
+    @GetMapping("/index")
     public String index(){
     return "index";
-
-
-
-    }
+}
 }

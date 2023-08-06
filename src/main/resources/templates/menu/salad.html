@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Напитки</title>
+</head>
+<body>
+<div th:each="salad: ${salads}">
+  <a th:href="@{/menu/{id}(id=${salad.getId()})}"
+     th:text="${salad.title + ', ' +salad.volume+ ', ' +salad.price}">user</a>
+  </p>
+</div>
+
+</body>
+</html>
