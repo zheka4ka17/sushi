@@ -1,4 +1,4 @@
-package ru.vitstep.sushi.model.controller;
+package ru.vitstep.sushi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -6,14 +6,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.vitstep.sushi.model.Product;
 import ru.vitstep.sushi.model.Type;
-import ru.vitstep.sushi.model.service.ProductService;
-import ru.vitstep.sushi.model.service.TypeService;
+import ru.vitstep.sushi.service.ProductService;
+import ru.vitstep.sushi.service.TypeService;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/menu")
+@SessionAttributes("order")
 public class ProductController {
 
     private final ProductService productService;
@@ -25,19 +26,7 @@ public class ProductController {
         this.typeService = typeService;
     }
 
-    @GetMapping
-    public String menu(Model model, @RequestParam(name = "findTitle",required = false) String findTitle) {
-     if (!(findTitle ==null) && !findTitle.isBlank())
-        {
-           model.addAttribute("products", productService.findByTitle(findTitle));
-        }
-  else{
-        List<Type> types = typeService.findAll();
-        for (Type type : types)
-            model.addAttribute(type.getTitle(), productService.findByType(type));
-     }
-        return "menu/menu";
-    }
+
 
     @GetMapping("/sushi")
     public String getSushi(Model model){
@@ -96,29 +85,11 @@ public class ProductController {
         return "menu/sauce";
     }
 
-
-
-
-
-
     @GetMapping("/{id}")
     public String getProductById(@PathVariable("id") Long id, Model model){
         model.addAttribute("product",productService.findById(id));
         return "menu/show";
 
-    }
-
-    @GetMapping("/new")
-    public String newProduct(Model model){
-        model.addAttribute("newProduct", new Product());
-        model.addAttribute("types",typeService.findAll());
-        return "menu/new_product";
-    }
-
-    @PostMapping("/new")
-    public String create(@ModelAttribute("newProduct") Product product){
-        productService.save(product);
-        return "redirect:/menu";
     }
 
 

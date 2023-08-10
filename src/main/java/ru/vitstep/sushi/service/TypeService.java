@@ -1,4 +1,4 @@
-package ru.vitstep.sushi.model.service;
+package ru.vitstep.sushi.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

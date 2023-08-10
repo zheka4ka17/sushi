@@ -1,4 +1,4 @@
-package ru.vitstep.sushi.model.service;
+package ru.vitstep.sushi.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ public class UserService {
     return userRepository.findById(id).orElse(null);
     }
 
-    public void update(User user){
+    public void save(User user){
     userRepository.save(user);
     }
 

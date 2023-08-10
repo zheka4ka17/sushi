@@ -1,41 +1,46 @@
-package ru.vitstep.sushi.model.controller;
+package ru.vitstep.sushi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.vitstep.sushi.model.Role;
 import ru.vitstep.sushi.model.User;
-import ru.vitstep.sushi.model.service.UserService;
+import ru.vitstep.sushi.service.UserService;
 
 @Controller
 @RequestMapping("/user")
+@SessionAttributes("order")
 public class UserController {
 
     private final UserService userService;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping("/all")
-    public String findAll(Model model) {
-        model.addAttribute("users", userService.findAll());
-        return "user/all";
+
+    @GetMapping("/login")
+    public String login() {
+        return "user/login";
     }
+
 
     @GetMapping("/new")
     public String newUser(Model model) {
         model.addAttribute("user", new User());
-        return "user/new_user";
+        return "registration";
     }
 
     @PostMapping("/new")
     public String create(@ModelAttribute("user") User user) {
-        user.setRole(Role.valueOf("USER"));
-        userService.update(user);
+//        user.setRole(Role.valueOf("USER"));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userService.save(user);
         return "redirect:/index";
     }
 
@@ -53,17 +58,5 @@ public class UserController {
         userService.update(id, user);
         return "redirect:/people";
     }
-
-    @GetMapping("/{id}")
-    public String getById(@PathVariable("id") Long id, Model model){
-        model.addAttribute("user",userService.findById(id));
-        return "user/show_user";
-    }
-
-
-    @GetMapping("/delete/{id}")
-    public String removeProduct(@PathVariable(value = "id") Long id){
-        userService.delete(id);
-        return "redirect:/user/all";
-    }
 }
+

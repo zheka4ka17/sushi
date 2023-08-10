@@ -7,7 +7,7 @@
 <body>
 <div th:each="user: ${users}">
   <a th:href="@{/user/{id}(id=${user.getId()})}"
-     th:text="${user.name +', ' +user.surname+ ', ' +user.password+ ', ' +user.email+ ', ' +user.phoneNumber+ ', ' +user.role}">user</a>
+     th:text="${user.name+', '+user.name +', ' +user.surname+ ', ' +user.password+ ', ' +user.email+ ', ' +user.phoneNumber}">user</a>
     <a class="btn btn-success" th:href="@{/user/{id}/edit(id=${user.id})}"><i class="fa-solid fa-pen-to-square"></i></a>
     <a class="btn btn-danger" th:href="@{/user/delete/{id}/(id=${user.id})}"><i class="fa-solid fa-trash-can"></i></a>
 </div>
