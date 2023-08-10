@@ -35,6 +35,10 @@ public class MainController {
         model.addAttribute("randList",randomList);
         return "index";
     }
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
 
 
     @ModelAttribute(name = "order")
