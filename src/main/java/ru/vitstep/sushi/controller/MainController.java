@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import ru.vitstep.sushi.model.Order;
 import ru.vitstep.sushi.model.Product;
@@ -39,11 +40,16 @@ public class MainController {
     public String login(){
         return "login";
     }
-
-
     @ModelAttribute(name = "order")
     public Order order() {
         return new Order();
     }
+    @GetMapping("/addProduct")
+    private String addProductToOrder(Product product, Model model) {
+        Order order=(Order) model.getAttribute("order");
+        order.addProduct(product);
+        return "redirect:/";
+    }
+
 }
 

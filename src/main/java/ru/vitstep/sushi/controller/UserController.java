@@ -23,27 +23,6 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
-
-    @GetMapping("/login")
-    public String login() {
-        return "user/login";
-    }
-
-
-    @GetMapping("/new")
-    public String newUser(Model model) {
-        model.addAttribute("user", new User());
-        return "registration";
-    }
-
-    @PostMapping("/new")
-    public String create(@ModelAttribute("user") User user) {
-//        user.setRole(Role.valueOf("USER"));
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userService.save(user);
-        return "redirect:/index";
-    }
-
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") Long id) {
         model.addAttribute("user", userService.findById(id));
@@ -53,8 +32,6 @@ public class UserController {
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("user") /*@Valid*/ User user, //BindingResult bindingResult,
                          @PathVariable("id") Long id) {
-//        if (bindingResult.hasErrors())
-//            return "people/edit";
         userService.update(id, user);
         return "redirect:/people";
     }

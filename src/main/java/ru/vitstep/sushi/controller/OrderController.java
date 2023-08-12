@@ -8,7 +8,7 @@ import ru.vitstep.sushi.model.Order;
 import ru.vitstep.sushi.service.OrderService;
 
 @Controller
-@RequestMapping("/order")
+@RequestMapping("order")
 @SessionAttributes("order")
 public class OrderController {
 
@@ -17,6 +17,9 @@ public class OrderController {
     public OrderController(OrderService orderService) {
         this.orderService = orderService;
     }
+
+
+
 
     @GetMapping("/current")
     public String getCurrent(@SessionAttribute("order") Order order, Model model){

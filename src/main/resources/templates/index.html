@@ -18,11 +18,18 @@
 <a href="/login"> Войти</a>
 <a href="/registration">Зарегистрироваться</a>
 <a href="">Наши контакты</a>
+</br>
+
+<a href="/order/current" th:text="'Корзина '+${order.getProducts().size()}"></a>
+
+</br>
 
 <div th:each="product:${randList}">
 <a th:href="@{/menu/{id}(id=${product.getId()})}"
    th:text="${product.title + ', ' +product.volume+ ', ' +product.price}">user</a>
+    <a href="/addProduct"><i class="fa-solid fa-plus"></i></a>
 <img th:src="@{${product.image}}">
 </div>
+<script src="https://kit.fontawesome.com/f280ff59d1.js" crossorigin="anonymous"></script>
 </body>
 </html>
