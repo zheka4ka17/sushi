@@ -3,8 +3,6 @@ package ru.vitstep.sushi.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -21,20 +19,26 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @CreationTimestamp
     private LocalDateTime created;
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
     private BigDecimal fullPrice;
     private String address;
-    @OneToMany(cascade = CascadeType.ALL ,fetch = FetchType.EAGER)
+    private String info;
+    @ManyToMany
+    @JoinTable(name = "orders_products",
+    joinColumns = @JoinColumn(name = "order_id"),
+    inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Product> products = new ArrayList<>();
 
 
     public void addProduct(Product product){
         products.add(product);
-
+        BigDecimal price = new BigDecimal(0);
+        for (Product prod : products)
+            price=price.add(prod.getPrice());
+        this.fullPrice=price;
     }
 
     public void removeProduct(Product product){

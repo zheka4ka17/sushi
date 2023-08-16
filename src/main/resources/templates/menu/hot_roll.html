@@ -5,11 +5,15 @@
   <title>Горячие роллы</title>
 </head>
 <body>
+<a href="/order/current" th:text="'Корзина '+${order.getProducts().size()}"></a>
+
 <div th:each="hot_roll: ${hot_rolls}">
   <a th:href="@{/menu/{id}(id=${hot_roll.getId()})}"
      th:text="${hot_roll.title + ', ' +hot_roll.volume+ ', ' +hot_roll.price}">user</a>
+  <a th:href="@{/menu/add-product/{id}(id=${hot_roll.getId()})}"><i class="fa-solid fa-plus"></i></a>
   <img th:src="@{${hot_roll.image}}">
 </div>
 
+<script src="https://kit.fontawesome.com/f280ff59d1.js" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -5,11 +5,15 @@
   <title>Салаты</title>
 </head>
 <body>
+<a href="/order/current" th:text="'Корзина '+${order.getProducts().size()}"></a>
+
 <div th:each="salad: ${salads}">
   <a th:href="@{/menu/{id}(id=${salad.getId()})}"
      th:text="${salad.title + ', ' +salad.volume+ ', ' +salad.price}">user</a>
+  <a th:href="@{/menu/add-product/{id}(id=${salad.getId()})}"><i class="fa-solid fa-plus"></i></a>
   <img th:src="@{${salad.image}}">
 </div>
 
+<script src="https://kit.fontawesome.com/f280ff59d1.js" crossorigin="anonymous"></script>
 </body>
 </html>

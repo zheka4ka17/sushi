@@ -3,10 +3,7 @@ package ru.vitstep.sushi.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import ru.vitstep.sushi.model.Order;
 import ru.vitstep.sushi.model.Product;
 import ru.vitstep.sushi.service.ProductService;
@@ -25,7 +22,7 @@ public class MainController {
         this.productService = productService;
     }
 
-    @GetMapping()
+    @GetMapping("/")
     public String index(Model model) {
         List<Product> randomList= new ArrayList<>();
         Random random = new Random();
@@ -44,8 +41,9 @@ public class MainController {
     public Order order() {
         return new Order();
     }
-    @GetMapping("/addProduct")
-    private String addProductToOrder(Product product, Model model) {
+    @GetMapping("/addProduct/{id}")
+    private String addProductToOrder(@PathVariable("id") Long id, Model model) {
+        Product product=productService.findById(id);
         Order order=(Order) model.getAttribute("order");
         order.addProduct(product);
         return "redirect:/";

@@ -5,10 +5,15 @@
     <title>Роллы</title>
 </head>
 <body>
+<a href="/order/current" th:text="'Корзина '+${order.getProducts().size()}"></a>
+
 <div th:each="roll: ${rolls}">
   <a th:href="@{/menu/{id}(id=${roll.getId()})}"
      th:text="${roll.title + ', '+ roll.volume+ ', ' +roll.price}">user</a>
+    <a th:href="@{/menu/add-product/{id}(id=${roll.getId()})}"><i class="fa-solid fa-plus"></i></a>
     <img th:src="@{${roll.image}}">
 </div>
+
+<script src="https://kit.fontawesome.com/f280ff59d1.js" crossorigin="anonymous"></script>
 </body>
 </html>

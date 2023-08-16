@@ -21,11 +21,11 @@ public class ProductService {
         this.productRepository = productRepository;
         this.typeRepository = typeRepository;
     }
-
+@Transactional
     public List<Product> findAll(){
     return productRepository.findAll();
     }
-
+@Transactional
     public Product findById(Long id){
     return productRepository.findById(id).get();
     }
@@ -39,11 +39,11 @@ public class ProductService {
     productRepository.save(updated);
 
     }
-
+@Transactional
     public List<Product> findByType(Type type){
         return productRepository.findAll().stream().filter(product -> product.getType().equals(type)).collect(Collectors.toList());
     }
-
+@Transactional
     public List<Product> findByTitle(String findTitle){
         return productRepository.findProductByTitleContainsIgnoreCase(findTitle);
     }

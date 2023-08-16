@@ -4,7 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.vitstep.sushi.model.Product;
+import ru.vitstep.sushi.model.Role;
 import ru.vitstep.sushi.model.Type;
+import ru.vitstep.sushi.model.User;
 import ru.vitstep.sushi.service.OrderService;
 import ru.vitstep.sushi.service.ProductService;
 import ru.vitstep.sushi.service.TypeService;
@@ -50,6 +52,7 @@ public class AdminController {
 
     @PostMapping("/new-product")
     public String create(@ModelAttribute("newProduct") Product product){
+        System.out.println(product);
         productService.save(product);
         return "redirect:/menu";
     }
@@ -68,7 +71,7 @@ public class AdminController {
     @PostMapping("/new-type")
     public String create(@ModelAttribute("type") Type type){
         typeService.addType(type);
-        return "redirect:/type";
+        return "redirect:/types";
     }
 
     @GetMapping("/users")
@@ -81,12 +84,25 @@ public class AdminController {
         model.addAttribute("user",userService.findById(id));
         return "user/show_user";
     }
+    @GetMapping("user/{id}/edit")
+    public String edit(Model model, @PathVariable("id") Long id) {
+        model.addAttribute("user", userService.findById(id));
+       // model.addAttribute("roles", Role.values());
+        return "user/update_form";
+    }
+
+    @PostMapping("user/{id}/edit")
+    public String change(@ModelAttribute("user") User user,@PathVariable("id") Long id){
+        userService.update(id, user);
+        return "redirect:/admin/users";
+
+    }
 
 
-    @GetMapping("user/delete/{id}")
+    @GetMapping("/user/delete/{id}")
     public String removeProduct(@PathVariable(value = "id") Long id){
         userService.delete(id);
-        return "redirect:/user/all";
+        return "redirect:/admin/users";
     }
 }
 

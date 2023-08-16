@@ -1,6 +1,6 @@
 package ru.vitstep.sushi.model;
 
 public enum Role {
-    USER, ADMINISTRATOR, GUEST
+    ROLE_USER, ROLE_ADMIN, ROLE_GUEST
 }
 

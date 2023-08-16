@@ -5,11 +5,15 @@
   <title>Напитки</title>
 </head>
 <body>
+<a href="/order/current" th:text="'Корзина '+${order.getProducts().size()}"></a>
+
 <div th:each="drink: ${drinks}">
   <a th:href="@{/menu/{id}(id=${drink.getId()})}"
      th:text="${drink.title + ', ' +drink.volume+ ', ' +drink.price}">user</a>
+  <a th:href="@{/menu/add-product/{id}(id=${drink.getId()})}"><i class="fa-solid fa-plus"></i></a>
   <img th:src="@{${drink.image}}">
 </div>
 
+<script src="https://kit.fontawesome.com/f280ff59d1.js" crossorigin="anonymous"></script>
 </body>
 </html>
