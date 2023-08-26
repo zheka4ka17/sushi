@@ -18,8 +18,22 @@
     <div><a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"
             href="#"><i class="bi bi-person fs-5"></i></a>
       <ul class="dropdown-menu" aria-labelledby="signDropdown">
-        <li><a class="dropdown-item" href="#">Регистрация</a></li>
-        <li><a class="dropdown-item" href="#">Вход</a></li>
+        <li><a class="dropdown-item" href="/registration">Регистрация</a></li>
+        <li><a class="dropdown-item" href="/login">Вход</a></li>
+      </ul>
+    </div>
+    <div id="cart" class="header-cart mx-2 dropdown">
+      <button class="dropdown-button dropdown-toggle" type="button" id="cartDropdown" data-bs-toggle="dropdown" data-bs-auto-close="outside" data-loading-text="Загрузка..." aria-expanded="false">
+        <i class="bi bi-basket3 mx-2 fs-5"></i>
+        <span id="cart-total" th:text="'Корзина '+'('+${order.getProducts().size()}+')'+ ' '+ ${order.fullPrice}+'р'"></span>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="cartDropdown">
+        <li class="d-flex justify-content-center my-2" th:if="${order.getProducts().size()} > 0">
+          <a href="/order/current" class="btn btn-success">Оформить заказ</a>
+        </li>
+        <li th:if="${order.getProducts().size()} == 0">
+          <p class="text-center py-3 px-2 mb-0" >Ваша корзина пуста!</p>
+        </li>
       </ul>
     </div>
   </div>

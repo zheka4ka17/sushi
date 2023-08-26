@@ -2,15 +2,21 @@ package ru.vitstep.sushi.controller;
 
 import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.vitstep.sushi.model.Order;
 import ru.vitstep.sushi.model.Product;
+import ru.vitstep.sushi.model.User;
+import ru.vitstep.sushi.security.UserDetail;
 import ru.vitstep.sushi.service.ProductService;
 import ru.vitstep.sushi.service.TypeService;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Controller
@@ -90,6 +96,20 @@ public class ProductController {
     @GetMapping("/{id}")
     public String getProductById(@PathVariable("id") Long id, Model model) {
         model.addAttribute("product", productService.findById(id));
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.getAuthorities().equals("ROLE_ADMIN")) {
+          UserDetail userDetail = (UserDetail) authentication.getPrincipal();
+          User user = userDetail.getUser();
+//            if(user.getRole().equals("ROLE_ADMIN"))
+         model.addAttribute("admin", user);}
+
+        List<Product> random1= new ArrayList<>();
+        Random random = new Random();
+        for(int i=0; i<6; i++){
+            int rand= random.nextInt(productService.findAll().size());
+            random1.add(productService.findAll().get((rand)));
+        }
+        model.addAttribute("randList",random1);
         return "menu/show";
 
     }
