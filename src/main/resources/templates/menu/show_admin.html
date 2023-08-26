@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Show product</title>
+</head>
+<body>
+
+<h1 th:text="${product.title}"></h1>
+
+<img th:src="@{${product.image}}">
+<p th:text="${product.description}"></p>
+<p th:text="${product.volume}"></p>
+<p th:text="${product.price}"></p>
+<p th:text="${product.type.title}"></p>
+
+<form th:method="Delete" th:action="@{admin/product/delete{id}(id=${product.id})}" th:object="${product}">
+  <input type="submit" th:value="Удалить">
+</form>
+
+<script src="https://kit.fontawesome.com/f280ff59d1.js" crossorigin="anonymous"></script>
+</body>
+</html>

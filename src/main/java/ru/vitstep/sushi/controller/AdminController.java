@@ -54,7 +54,22 @@ public class AdminController {
     public String create(@ModelAttribute("newProduct") Product product){
         System.out.println(product);
         productService.save(product);
-        return "redirect:/menu";
+        return "redirect:/admin/product";
+    }
+
+    @GetMapping("product/{id}/edit")
+    public String editProduct(Model model, @PathVariable("id") Long id) {
+        model.addAttribute("product", productService.findById(id));
+        model.addAttribute("types",typeService.findAll());
+        // model.addAttribute("roles", Role.values());
+        return "menu/update_product";
+    }
+
+    @PostMapping("product/{id}/edit")
+    public String changeUser(@ModelAttribute("product") Product product,@PathVariable("id") Long id){
+        productService.update(id, product);
+        return "redirect:/admin/product";
+
     }
     @GetMapping("/types")
     public String showAll(Model model){
@@ -85,24 +100,25 @@ public class AdminController {
         return "user/show_user";
     }
     @GetMapping("user/{id}/edit")
-    public String edit(Model model, @PathVariable("id") Long id) {
+    public String editUser(Model model, @PathVariable("id") Long id) {
         model.addAttribute("user", userService.findById(id));
        // model.addAttribute("roles", Role.values());
         return "user/update_form";
     }
 
     @PostMapping("user/{id}/edit")
-    public String change(@ModelAttribute("user") User user,@PathVariable("id") Long id){
+    public String changeUser(@ModelAttribute("user") User user,@PathVariable("id") Long id){
         userService.update(id, user);
         return "redirect:/admin/users";
 
     }
 
 
-    @GetMapping("/user/delete/{id}")
+    @GetMapping("/product/delete/{id}")
     public String removeProduct(@PathVariable(value = "id") Long id){
-        userService.delete(id);
-        return "redirect:/admin/users";
+        System.out.println(productService.findById(id));
+        productService.delete(id);
+        return "redirect:/admin/product";
     }
 }
 

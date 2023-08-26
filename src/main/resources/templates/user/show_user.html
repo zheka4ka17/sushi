@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<a th:href="@{{id}/edit(id=${user.id})}">Редактировать</a>
+<a th:href="@{/admin/user/{id}/edit(id=${user.id})}">Редактировать</a>
 
 <p th:text="${user.username}"></p>
 <p th:text="${user.name}"></p>

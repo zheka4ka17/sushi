@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<form th:method="Post"  th:object="${user}" th:action="@{/user/{id}(id=${user.id})}">
+  <label for="username">Введите nickname</label>
+  <input type="text" th:field="*{username}" id="username" placeholder="username"></br>
+  <label for="name">Введите имя</label>
+  <input type="text" th:field="*{name}" id="name" placeholder="Имя"></br>
+  <label for="surname">Введите фамилию</label>
+  <input type="text" th:field="*{surname}" id="surname" placeholder="Фамилия"></br>
+  <label for="password">Придумайте пароль</label>
+  <input type="password" th:field="*{password}" id="password" placeholder="Пароль"></br>
+  <label for="email">Введите email</label>
+  <input type="text" th:field="*{email}" id="email" placeholder="Email"></br>
+  <label for="phoneNumber">Введите номер телефона</label>
+  <input type="text" th:field="*{phoneNumber}" id="phoneNumber" placeholder="Номер телефона"></br>
+
+  <!--  <label th:for="role">Выберите тип продукта</label>-->
+  <!--  <select th:object="${user}" th:field="*{role}" th:id="role">-->
+  <!--    <option th:each="role: ${roles}" th:value="${role.values()}" th:text="${role.toString()}">-->
+  <!--    </option>-->
+  <!--  </select>-->
+  <input type="submit" value="Редактировать">
+</form>
+</body>

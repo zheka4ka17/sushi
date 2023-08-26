@@ -27,7 +27,7 @@ public class ProductService {
     }
 @Transactional
     public Product findById(Long id){
-    return productRepository.findById(id).get();
+    return productRepository.findById(id).orElse(null);
     }
     @Transactional
     public void save(Product product){
@@ -39,6 +39,11 @@ public class ProductService {
     productRepository.save(updated);
 
     }
+
+    @Transactional
+    public void deleteProduct(Long id){
+        productRepository.deleteById(id);
+    }
 @Transactional
     public List<Product> findByType(Type type){
         return productRepository.findAll().stream().filter(product -> product.getType().equals(type)).collect(Collectors.toList());
@@ -46,6 +51,11 @@ public class ProductService {
 @Transactional
     public List<Product> findByTitle(String findTitle){
         return productRepository.findProductByTitleContainsIgnoreCase(findTitle);
+    }
+
+    @Transactional
+    public void delete(Long id){
+        productRepository.delete(productRepository.findById(id).orElse(null));
     }
 
 

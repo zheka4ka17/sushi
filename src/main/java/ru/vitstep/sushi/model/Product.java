@@ -22,7 +22,7 @@ public class Product {
     private String description;
     private BigDecimal price;
     private String volume;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.REFRESH,fetch = FetchType.EAGER)
     @JoinColumn(name = "type_id", referencedColumnName = "id")
     @NotNull
     private Type type;

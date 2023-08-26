@@ -26,7 +26,7 @@ public class MainController {
     public String index(Model model) {
         List<Product> randomList= new ArrayList<>();
         Random random = new Random();
-        for(int i=0; i<8; i++){
+        for(int i=0; i<6; i++){
             int rand= random.nextInt(productService.findAll().size());
             randomList.add(productService.findAll().get((rand)));
         }

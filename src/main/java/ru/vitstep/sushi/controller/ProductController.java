@@ -90,7 +90,6 @@ public class ProductController {
     @GetMapping("/{id}")
     public String getProductById(@PathVariable("id") Long id, Model model) {
         model.addAttribute("product", productService.findById(id));
-
         return "menu/show";
 
     }

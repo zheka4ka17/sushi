@@ -14,7 +14,6 @@ import java.util.List;
 @Table(name = "orders")
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,12 +24,19 @@ public class Order {
     private User user;
     private BigDecimal fullPrice;
     private String address;
+
+    public Order() {
+        this.fullPrice= BigDecimal.valueOf(0);
+    }
+
     private String info;
     @ManyToMany
     @JoinTable(name = "orders_products",
     joinColumns = @JoinColumn(name = "order_id"),
     inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Product> products = new ArrayList<>();
+
+
 
 
     public void addProduct(Product product){
