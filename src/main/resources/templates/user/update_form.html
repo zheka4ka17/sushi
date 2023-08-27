@@ -19,11 +19,11 @@
   <label for="phoneNumber">Введите номер телефона</label>
   <input type="text" th:field="*{phoneNumber}" id="phoneNumber" placeholder="Номер телефона"></br>
 
-<!--  <label th:for="role">Выберите тип продукта</label>-->
-<!--  <select th:object="${user}" th:field="*{role}" th:id="role">-->
-<!--    <option th:each="role: ${roles}" th:value="${role.values()}" th:text="${role.toString()}">-->
-<!--    </option>-->
-<!--  </select>-->
+  <label th:for="role">Выберите тип продукта</label>
+  <select th:object="${user}" th:field="*{role}" th:id="role">
+    <option th:each="role: ${roles}" th:value="${role.id}" th:text="${role.name}">
+    </option>
+  </select>
   <input type="submit" value="Редактировать">
 </form>
 </body>

@@ -7,19 +7,24 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.vitstep.sushi.model.User;
 import ru.vitstep.sushi.repository.UserRepository;
+import ru.vitstep.sushi.service.RoleService;
+import ru.vitstep.sushi.service.UserService;
 
 @Controller
 @RequestMapping("/registration")
 @SessionAttributes("order")
 public class RegistrationController {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
     private final PasswordEncoder passwordEncoder;
+    private final RoleService roleService;
 
     @Autowired
-    public RegistrationController(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
+    public RegistrationController(UserService userService, PasswordEncoder passwordEncoder, RoleService roleService) {
+        this.userService = userService;
+        this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
+
     }
 
     @GetMapping
@@ -31,8 +36,8 @@ public class RegistrationController {
     @PostMapping
     public String processRegistration(@ModelAttribute("user")  User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole("ROLE_USER");
-        userRepository.save(user);
+        user.setRole(roleService.findByName("ROLE_USER"));
+        userService.save(user);
         return "redirect:/login";
     }
 }

@@ -90,6 +90,7 @@ public class ProductController {
     public String getSauces(Model model) {
         List<Product> sauces = productService.findAll().stream().filter(product -> product.getType().getId() == 8).collect(Collectors.toList());
         model.addAttribute("sauces", sauces);
+
         return "menu/sauce";
     }
 
@@ -106,7 +107,7 @@ public class ProductController {
 
         List<Product> random1= new ArrayList<>();
         Random random = new Random();
-        for(int i=0; i<6; i++){
+        for(int i=0; i<5; i++){
             int rand= random.nextInt(productService.findAll().size());
             random1.add(productService.findAll().get((rand)));
         }

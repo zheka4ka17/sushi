@@ -7,10 +7,7 @@ import ru.vitstep.sushi.model.Product;
 import ru.vitstep.sushi.model.Role;
 import ru.vitstep.sushi.model.Type;
 import ru.vitstep.sushi.model.User;
-import ru.vitstep.sushi.service.OrderService;
-import ru.vitstep.sushi.service.ProductService;
-import ru.vitstep.sushi.service.TypeService;
-import ru.vitstep.sushi.service.UserService;
+import ru.vitstep.sushi.service.*;
 
 import java.util.List;
 
@@ -21,12 +18,14 @@ public class AdminController {
     private final OrderService orderService;
     private final UserService userService;
     private final TypeService typeService;
+    private final RoleService roleService;
 
-    public AdminController(ProductService productService, OrderService orderService, UserService userService, TypeService typeService) {
+    public AdminController(ProductService productService, OrderService orderService, UserService userService, TypeService typeService, RoleService roleService) {
         this.productService = productService;
         this.orderService = orderService;
         this.userService = userService;
         this.typeService = typeService;
+        this.roleService = roleService;
     }
 
     @GetMapping("/product")
@@ -102,7 +101,7 @@ public class AdminController {
     @GetMapping("user/{id}/edit")
     public String editUser(Model model, @PathVariable("id") Long id) {
         model.addAttribute("user", userService.findById(id));
-       // model.addAttribute("roles", Role.values());
+        model.addAttribute("roles", roleService.findAll());
         return "user/update_form";
     }
 

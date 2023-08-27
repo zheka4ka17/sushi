@@ -32,7 +32,9 @@ public class User  {
     private String phoneNumber;
     @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
     private List<Order> orders = new ArrayList<>();
-    private String role;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(referencedColumnName = "id", name = "role_id")
+    private Role role;
 
 
 }

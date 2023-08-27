@@ -42,14 +42,17 @@ public class Order {
     public void addProduct(Product product){
         products.add(product);
         BigDecimal price = new BigDecimal(0);
-        for (Product prod : products)
-            price=price.add(prod.getPrice());
-        this.fullPrice=price;
+//        for (Product prod : products)
+//            price=price.add(prod.getPrice());
+        this.fullPrice=this.fullPrice.add(product.getPrice());
     }
 
     public void removeProduct(Product product){
+        this.fullPrice=fullPrice.subtract(product.getPrice());
         products.remove(product);
 
     }
-}
+
+    }
+
 

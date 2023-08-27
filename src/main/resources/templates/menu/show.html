@@ -129,35 +129,52 @@
                 <!-- Slider -->
                 <div>
                     <h3 class="text-center my-5">Рекомендуем</h3>
-                  <div id="popular-slider" class="swiper">
-                    <div class="swiper-wrapper">
-                      <div class="swiper-slide"><a href="#" class="text-dark text-decoration-none">
-                        <div class="product-slide  d-flex flex-column align-items-center justify-content-center">
-                          <img src="/images/product/yaki-makijpg.jpg" alt="">
-                          <p class="fw-bold">410 р</p>
-                          <p>Яки Маки</p>
+                    <div id="popular-slider" class="swiper mb-4">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide" th:each="product:${randList}">
+                                <div class="product-slide  d-flex flex-column align-items-center justify-content-center">
+                                    <a th:href="@{/menu/{id}(id=${product.getId()})}" class="text-dark text-decoration-none">
+                                        <img th:src="@{${product.image}}" alt="">
+                                        <p class="fw-bold" th:text="${product.price + ' р'}">510 р</p>
+                                        <p th:text="${product.title}">Горячий ролл "Киото"</p>
+                                    </a>
+                                    <a th:href="@{/addProduct/{id}(id=${product.id})}" class="btn btn-success rounded-pill fw-bold">Добавить в корзину</a>
+                                </div>
+                            </div>
                         </div>
-                      </a></div>
-                      <div class="swiper-slide"><a href="#" class="text-dark text-decoration-none">
-                        <div class="product-slide  d-flex flex-column align-items-center justify-content-center">
-                          <img src="/images/product/filadelfiya.jpg" alt="">
-                          <p class="fw-bold">610 р</p>
-                          <p>Филадельфия Маки</p>
-                        </div>
-                      </a></div>
-                      <div class="swiper-slide"><a href="#" class="text-dark text-decoration-none">
-                        <div class="product-slide  d-flex flex-column align-items-center justify-content-center">
-                          <img src="/images/product/kioto.png" alt="">
-                          <p class="fw-bold">510 р</p>
-                          <p>Горячий ролл "Киото"</p>
-                        </div>
-                      </a></div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
                     </div>
-                    <div class="swiper-button-next"></div>
-                      <div class="swiper-button-prev"></div>
-                    </div>
-                  </div>
+<!--                  <div id="popular-slider" class="swiper">-->
+<!--                    <div class="swiper-wrapper">-->
+<!--                      <div class="swiper-slide"><a href="#" class="text-dark text-decoration-none">-->
+<!--                        <div class="product-slide  d-flex flex-column align-items-center justify-content-center">-->
+<!--                          <img src="/images/product/yaki-makijpg.jpg" alt="">-->
+<!--                          <p class="fw-bold">410 р</p>-->
+<!--                          <p>Яки Маки</p>-->
+<!--                        </div>-->
+<!--                      </a></div>-->
+<!--                      <div class="swiper-slide"><a href="#" class="text-dark text-decoration-none">-->
+<!--                        <div class="product-slide  d-flex flex-column align-items-center justify-content-center">-->
+<!--                          <img src="/images/product/filadelfiya.jpg" alt="">-->
+<!--                          <p class="fw-bold">610 р</p>-->
+<!--                          <p>Филадельфия Маки</p>-->
+<!--                        </div>-->
+<!--                      </a></div>-->
+<!--                      <div class="swiper-slide"><a href="#" class="text-dark text-decoration-none">-->
+<!--                        <div class="product-slide  d-flex flex-column align-items-center justify-content-center">-->
+<!--                          <img src="/images/product/kioto.png" alt="">-->
+<!--                          <p class="fw-bold">510 р</p>-->
+<!--                          <p>Горячий ролл "Киото"</p>-->
+<!--                        </div>-->
+<!--                      </a></div>-->
+<!--                    </div>-->
+<!--                    <div class="swiper-button-next"></div>-->
+<!--                      <div class="swiper-button-prev"></div>-->
+<!--                    </div>-->
+<!--                  </div>-->
             </div>
+        </div>
 
             <!-- Footer -->
     </main>

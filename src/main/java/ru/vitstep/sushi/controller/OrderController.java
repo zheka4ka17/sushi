@@ -1,22 +1,18 @@
 package ru.vitstep.sushi.controller;
 
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.vitstep.sushi.model.Order;
-import ru.vitstep.sushi.model.Product;
 import ru.vitstep.sushi.model.User;
 import ru.vitstep.sushi.security.UserDetail;
 import ru.vitstep.sushi.service.OrderService;
 import ru.vitstep.sushi.service.ProductService;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Controller
 @RequestMapping("order")
@@ -24,11 +20,13 @@ import java.util.List;
 public class OrderController {
 
     private final OrderService orderService;
+    private final ProductService productService;
 
     @Autowired
-    public OrderController(OrderService orderService, ProductService productService) {
+    public OrderController(OrderService orderService, ProductService productService, ProductService productService1) {
         this.orderService = orderService;
-        //this.productService = productService;
+
+        this.productService = productService1;
     }
 
 
@@ -71,7 +69,7 @@ public class OrderController {
     @GetMapping("/deleteFromOrder/{id}")
     public String deleteFromOrder(@PathVariable("id") Long id, Model model){
         Order order= (Order) model.getAttribute("order");
-        orderService.removeProduct(order, id);
+        order.removeProduct(productService.findById(id));
 
         return "redirect:/order/current";
 

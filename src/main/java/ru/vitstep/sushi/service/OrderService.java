@@ -21,8 +21,8 @@ public class OrderService {
     public void save(Order order){
     orderRepository.save(order);
     }
-@Transactional
-    public void removeProduct(Order order, Long productId){
-    order.getProducts().remove(productRepository.findById(productId).get());
-    }
+//@Transactional
+//    public void removeProduct(Order order, Long productId){
+//    order.getProducts().remove(productRepository.findById(productId).get());
+//    }
 }
