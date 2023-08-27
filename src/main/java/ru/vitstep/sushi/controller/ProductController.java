@@ -97,10 +97,11 @@ public class ProductController {
     public String getProductById(@PathVariable("id") Long id, Model model) {
         model.addAttribute("product", productService.findById(id));
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication.getAuthorities().equals("ROLE_ADMIN")) {
+        System.out.println(authentication.getPrincipal());
+        if (!(authentication.getPrincipal() instanceof String)) {
           UserDetail userDetail = (UserDetail) authentication.getPrincipal();
           User user = userDetail.getUser();
-//            if(user.getRole().equals("ROLE_ADMIN"))
+        if(user.getRole().equals("ROLE_ADMIN"))
          model.addAttribute("admin", user);}
 
         List<Product> random1= new ArrayList<>();
