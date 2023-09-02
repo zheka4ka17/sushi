@@ -36,6 +36,16 @@ public class ProductController {
 
     @GetMapping("/sushi")
     public String getSushi(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if ((authentication.getPrincipal() instanceof String)) {
+            model.addAttribute("not_auth", true);
+
+        }
+        else {
+            model.addAttribute("auth", true);
+            UserDetail userDetail=(UserDetail) authentication.getPrincipal();
+            model.addAttribute("auth_user",userDetail.getUser());
+        }
 
         List<Product> sushi = productService.findAll().stream().filter(product -> product.getType().getId() == 1).collect(Collectors.toList());
         model.addAttribute("sushis", sushi);
@@ -44,6 +54,17 @@ public class ProductController {
 
     @GetMapping("/roll")
     public String getRolls(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if ((authentication.getPrincipal() instanceof String)) {
+            model.addAttribute("not_auth", true);
+
+        }
+        else {
+            model.addAttribute("auth", true);
+            UserDetail userDetail=(UserDetail) authentication.getPrincipal();
+            model.addAttribute("auth_user",userDetail.getUser());
+        }
         List<Product> rolls = productService.findAll().stream().filter(product -> product.getType().getId() == 2).collect(Collectors.toList());
         model.addAttribute("rolls", rolls);
         return "menu/roll";
@@ -52,6 +73,17 @@ public class ProductController {
 
     @GetMapping("/sets")
     public String getSets(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if ((authentication.getPrincipal() instanceof String)) {
+            model.addAttribute("not_auth", true);
+
+        }
+        else {
+            model.addAttribute("auth", true);
+            UserDetail userDetail=(UserDetail) authentication.getPrincipal();
+            model.addAttribute("auth_user",userDetail.getUser());
+        }
         List<Product> sets = productService.findAll().stream().filter(product -> product.getType().getId() == 3).collect(Collectors.toList());
         model.addAttribute("sets", sets);
         return "menu/set";
@@ -59,6 +91,17 @@ public class ProductController {
 
     @GetMapping("/hot-rolls")
     public String getHotRolls(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if ((authentication.getPrincipal() instanceof String)) {
+            model.addAttribute("not_auth", true);
+
+        }
+        else {
+            model.addAttribute("auth", true);
+            UserDetail userDetail=(UserDetail) authentication.getPrincipal();
+            model.addAttribute("auth_user",userDetail.getUser());
+        }
         List<Product> hotRolls = productService.findAll().stream().filter(product -> product.getType().getId() == 4).collect(Collectors.toList());
         model.addAttribute("hot_rolls", hotRolls);
         return "menu/hot_roll";
@@ -66,6 +109,17 @@ public class ProductController {
 
     @GetMapping("/dessert")
     public String getDesserts(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if ((authentication.getPrincipal() instanceof String)) {
+            model.addAttribute("not_auth", true);
+
+        }
+        else {
+            model.addAttribute("auth", true);
+            UserDetail userDetail=(UserDetail) authentication.getPrincipal();
+            model.addAttribute("auth_user",userDetail.getUser());
+        }
         List<Product> desserts = productService.findAll().stream().filter(product -> product.getType().getId() == 5).collect(Collectors.toList());
         model.addAttribute("desserts", desserts);
         return "menu/dessert";
@@ -73,6 +127,17 @@ public class ProductController {
 
     @GetMapping("/drinks")
     public String getSDrinks(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if ((authentication.getPrincipal() instanceof String)) {
+            model.addAttribute("not_auth", true);
+
+        }
+        else {
+            model.addAttribute("auth", true);
+            UserDetail userDetail=(UserDetail) authentication.getPrincipal();
+            model.addAttribute("auth_user",userDetail.getUser());
+        }
         List<Product> drinks = productService.findAll().stream().filter(product -> product.getType().getId() == 6).collect(Collectors.toList());
         model.addAttribute("drinks", drinks);
         return "menu/drink";
@@ -80,6 +145,17 @@ public class ProductController {
 
     @GetMapping("/salad")
     public String getSalads(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if ((authentication.getPrincipal() instanceof String)) {
+            model.addAttribute("not_auth", true);
+
+        }
+        else {
+            model.addAttribute("auth", true);
+            UserDetail userDetail=(UserDetail) authentication.getPrincipal();
+            model.addAttribute("auth_user",userDetail.getUser());
+        }
         List<Product> salads = productService.findAll().stream().filter(product -> product.getType().getId() == 7).collect(Collectors.toList());
         model.addAttribute("salads", salads);
         return "menu/salad";
@@ -88,6 +164,17 @@ public class ProductController {
 
     @GetMapping("/sauce")
     public String getSauces(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if ((authentication.getPrincipal() instanceof String)) {
+            model.addAttribute("not_auth", true);
+
+        }
+        else {
+            model.addAttribute("auth", true);
+            UserDetail userDetail=(UserDetail) authentication.getPrincipal();
+            model.addAttribute("auth_user",userDetail.getUser());
+        }
         List<Product> sauces = productService.findAll().stream().filter(product -> product.getType().getId() == 8).collect(Collectors.toList());
         model.addAttribute("sauces", sauces);
 
@@ -99,11 +186,24 @@ public class ProductController {
         model.addAttribute("product", productService.findById(id));
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         System.out.println(authentication.getPrincipal());
-        if (!(authentication.getPrincipal() instanceof String)) {
+        if (authentication.getPrincipal() instanceof UserDetail) {
           UserDetail userDetail = (UserDetail) authentication.getPrincipal();
           User user = userDetail.getUser();
-        if(user.getRole().equals("ROLE_ADMIN"))
+            System.out.println(user.getRole().getId());
+        if(user.getRole().getId()==2)
+
          model.addAttribute("admin", user);}
+
+
+
+        if (authentication.getPrincipal() instanceof String) {
+            model.addAttribute("not_auth", true);
+        }
+        else {
+            model.addAttribute("auth", true);
+            UserDetail userDetail=(UserDetail) authentication.getPrincipal();
+            model.addAttribute("auth_user",userDetail.getUser());
+        }
 
         List<Product> random1= new ArrayList<>();
         Random random = new Random();

@@ -7,6 +7,8 @@ import ru.vitstep.sushi.model.Order;
 import ru.vitstep.sushi.repository.OrderRepository;
 import ru.vitstep.sushi.repository.ProductRepository;
 
+import java.util.List;
+
 @Service
 public class OrderService {
     private final OrderRepository orderRepository;
@@ -25,4 +27,13 @@ public class OrderService {
 //    public void removeProduct(Order order, Long productId){
 //    order.getProducts().remove(productRepository.findById(productId).get());
 //    }
+
+
+    public List<Order> findAll(){
+    return orderRepository.findAll();
+    }
+
+    public Order findById(Long id){
+    return orderRepository.findById(id).orElse(null);
+    }
 }

@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.vitstep.sushi.model.User;
-import ru.vitstep.sushi.repository.UserRepository;
 import ru.vitstep.sushi.service.RoleService;
 import ru.vitstep.sushi.service.UserService;
 
@@ -30,7 +29,7 @@ public class RegistrationController {
     @GetMapping
     public String registerForm(Model model) {
         model.addAttribute("user", new User());
-        return "user/registration";
+        return "registration";
     }
 
     @PostMapping

@@ -7,9 +7,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.vitstep.sushi.model.Role;
 import ru.vitstep.sushi.model.User;
 import ru.vitstep.sushi.security.UserDetail;
+import ru.vitstep.sushi.service.RoleService;
 import ru.vitstep.sushi.service.UserService;
 
 @Controller
@@ -18,18 +18,20 @@ import ru.vitstep.sushi.service.UserService;
 public class UserController {
 
     private final UserService userService;
+    private final RoleService roleService;
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserController(UserService userService, PasswordEncoder passwordEncoder) {
+    public UserController(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/{id}")
     public String edit(Model model, @PathVariable("id") Long id) {
         model.addAttribute("user", userService.findById(id));
-        return "user/user_update";
+        return "edit_user";
     }
 
     @PostMapping("/{id}")
@@ -45,7 +47,7 @@ public class UserController {
         UserDetail userDetail= (UserDetail)authentication.getPrincipal();
         User user=userDetail.getUser();
         model.addAttribute("user", user);
-        return "user/show_user";
+        return "cabinet";
     }
 }
 

@@ -15,11 +15,19 @@
   <div class="header__logo"><a href="/" class="navbar-brand"><img src="/images/logo/logo.png"
                                                                   alt='Суши-Бар "Киото"' id="logoImg"></a></div>
   <div class="user-cart-container ms-auto">
-    <div><a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"
-            href="#"><i class="bi bi-person fs-5"></i></a>
-      <ul class="dropdown-menu" aria-labelledby="signDropdown">
-        <li><a class="dropdown-item" href="#">Регистрация</a></li>
-        <li><a class="dropdown-item" href="#">Вход</a></li>
+    <div>
+      <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+        <i class="bi bi-person fs-5"></i>
+      </a>
+      <ul th:if="${not_auth}" class="dropdown-menu" aria-labelledby="signDropdown">
+        <li><a class="dropdown-item" href="/registration">Регистрация</a></li>
+        <li><a class="dropdown-item" href="/login">Вход</a></li>
+      </ul>
+      <ul th:if="${auth}" class="dropdown-menu" aria-labelledby="signDropdown">
+        <li>&nbsp;<span th:text="${auth_user.username}"></span><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="/user/myRoom">Настройки</a></li>
+        <li><a class="dropdown-item" href="/logout">Выход</a></li>
+
       </ul>
     </div>
     <div id="cart" class="header-cart mx-2 dropdown">
@@ -53,9 +61,21 @@
             <li><a class="dropdown-item" href="/menu/sauce">Соусы</a></li>
           </ul>
         </li>
-        <li class="nav-item me-xl-4"><a class="nav-link" href="#">О "Киото"</a></li>
-        <li class="nav-item me-xl-4"><a class="nav-link" href="#">Заказ и Доставка</a></li>
-        <li class="nav-item me-xl-4"><a class="nav-link" href="#">Контакты</a></li>
+        <li class="nav-item me-xl-4">
+          <a class="nav-link" href="/kioto">
+            О "Киото"
+          </a>
+        </li>
+        <li class="nav-item me-xl-4">
+          <a class="nav-link" href="/delivery_info">
+            Заказ и Доставка
+          </a>
+        </li>
+        <li class="nav-item me-xl-4 ">
+          <a class="nav-link" href="/contacts">
+            Контакты
+          </a>
+        </li>
       </ul>
     </div>
   </nav>
@@ -106,10 +126,9 @@
     <div class="row p-md-3">
       <div class="col-md-2">
         <ul class="list-unstyled mb-md-0">
-          <li><a class="text-light footer__nav-link" href="#">О "Киото"</a></li>
-          <li><a class="text-light footer__nav-link" href="#">Заказ и доставка</a></li>
-          <li><a class="text-light footer__nav-link" href="#">Политика конфиденциальности</a></li>
-          <li><a class="text-light footer__nav-link" href="#">Условия оплаты</a></li>
+          <li><a class="text-light footer__nav-link" href="/kioto">О "Киото"</a></li>
+          <li><a class="text-light footer__nav-link" href="/delivery_info">Заказ и доставка</a></li>
+          <li><a class="text-light footer__nav-link" href="/policy">Политика конфиденциальности </a></li>
         </ul>
         <div class="social my-2"><a href="#" target="_blank"><img class="w-100" src="/images/social/vk.svg"
                                                                   alt="VK"></a></div>

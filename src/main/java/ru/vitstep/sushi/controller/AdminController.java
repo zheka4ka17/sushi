@@ -1,15 +1,16 @@
 package ru.vitstep.sushi.controller;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.vitstep.sushi.model.Product;
-import ru.vitstep.sushi.model.Role;
 import ru.vitstep.sushi.model.Type;
 import ru.vitstep.sushi.model.User;
+import ru.vitstep.sushi.security.UserDetail;
 import ru.vitstep.sushi.service.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -28,40 +29,58 @@ public class AdminController {
         this.roleService = roleService;
     }
 
+
+    @GetMapping
+    public String adminIndex(Model model){
+        model.addAttribute("users", userService.findAll());
+        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+        UserDetail userDetail= (UserDetail) authentication.getPrincipal();
+        model.addAttribute("user",userDetail.getUser());
+        return "admin_users";
+    }
+
+//    @GetMapping("/product")
+//    public String menu(Model model, @RequestParam(name = "findTitle",required = false) String findTitle) {
+//        if (!(findTitle ==null) && !findTitle.isBlank())
+//        {
+//            model.addAttribute("products", productService.findByTitle(findTitle));
+//        }
+//        else{
+//            List<Type> types = typeService.findAll();
+//            for (Type type : types)
+//                model.addAttribute(type.getTitle(), productService.findByType(type));
+//        }
+//        return "menu/menu";
+//    }
     @GetMapping("/product")
-    public String menu(Model model, @RequestParam(name = "findTitle",required = false) String findTitle) {
-        if (!(findTitle ==null) && !findTitle.isBlank())
-        {
-            model.addAttribute("products", productService.findByTitle(findTitle));
-        }
-        else{
-            List<Type> types = typeService.findAll();
-            for (Type type : types)
-                model.addAttribute(type.getTitle(), productService.findByType(type));
-        }
-        return "menu/menu";
+    public String allProducts(Model model){
+        model.addAttribute("products", productService.findAll());
+        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+        UserDetail userDetail= (UserDetail) authentication.getPrincipal();
+        model.addAttribute("user",userDetail.getUser());
+        return "admin_products";
     }
 
-    @GetMapping("/new-product")
-    public String newProduct(Model model){
-        model.addAttribute("newProduct", new Product());
-        model.addAttribute("types",typeService.findAll());
-        return "menu/new_product";
-    }
-
-    @PostMapping("/new-product")
-    public String create(@ModelAttribute("newProduct") Product product){
-        System.out.println(product);
-        productService.save(product);
-        return "redirect:/admin/product";
-    }
+//    @GetMapping("/new-product")
+//    public String newProduct(Model model){
+//        model.addAttribute("newProduct", new Product());
+//        model.addAttribute("types",typeService.findAll());
+//        return "menu/new_product";
+//    }
+//
+//    @PostMapping("/new-product")
+//    public String create(@ModelAttribute("newProduct") Product product){
+//        System.out.println(product);
+//        productService.save(product);
+//        return "redirect:/admin/product";
+//    }
 
     @GetMapping("product/{id}/edit")
     public String editProduct(Model model, @PathVariable("id") Long id) {
         model.addAttribute("product", productService.findById(id));
         model.addAttribute("types",typeService.findAll());
         // model.addAttribute("roles", Role.values());
-        return "menu/update_product";
+        return "edit_product";
     }
 
     @PostMapping("product/{id}/edit")
@@ -70,17 +89,17 @@ public class AdminController {
         return "redirect:/admin/product";
 
     }
-    @GetMapping("/types")
-    public String showAll(Model model){
-        model.addAttribute("types", typeService.findAll());
-        return "type/types";
-    }
-
-    @GetMapping("/new-type")
-    public String createType(Model model){
-        model.addAttribute("type", new Type());
-        return "type/new_type";
-    }
+//    @GetMapping("/types")
+//    public String showAll(Model model){
+//        model.addAttribute("types", typeService.findAll());
+//        return "type/types";
+//    }
+//
+//    @GetMapping("/new-type")
+//    public String createType(Model model){
+//        model.addAttribute("type", new Type());
+//        return "type/new_type";
+//    }
 
     @PostMapping("/new-type")
     public String create(@ModelAttribute("type") Type type){
@@ -88,21 +107,29 @@ public class AdminController {
         return "redirect:/types";
     }
 
-    @GetMapping("/users")
-    public String findAll(Model model) {
-        model.addAttribute("users", userService.findAll());
-        return "user/all";
+    @GetMapping("/orders")
+    public String orders(Model model) {
+        model.addAttribute("orders", orderService.findAll());
+        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+        UserDetail userDetail= (UserDetail) authentication.getPrincipal();
+        model.addAttribute("user",userDetail.getUser());
+        return "all_order";
     }
-    @GetMapping("user/{id}")
-    public String getById(@PathVariable("id") Long id, Model model){
-        model.addAttribute("user",userService.findById(id));
-        return "user/show_user";
+
+        @GetMapping("order/{id}/show")
+        public String showOrder(@PathVariable("id") Long id, Model model){
+        model.addAttribute("order", orderService.findById(id));
+        return "show_order";
+
     }
+
+
     @GetMapping("user/{id}/edit")
     public String editUser(Model model, @PathVariable("id") Long id) {
         model.addAttribute("user", userService.findById(id));
         model.addAttribute("roles", roleService.findAll());
-        return "user/update_form";
+        model.addAttribute("admin", true);
+        return "edit_user";
     }
 
     @PostMapping("user/{id}/edit")

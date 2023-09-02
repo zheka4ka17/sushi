@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <script defer="defer" src="/public/js/main.js"></script>
+    <link href="/public/css/main.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+    <nav class="navbar navbar-light bg-light p-3">
+        <div class="d-flex col-12 col-md-3 col-lg-2 mb-2 mb-lg-0 flex-wrap flex-md-nowrap justify-content-between">
+            <a class="navbar-brand" href="/admin">
+                Admin Panel
+            </a>
+            <button class="navbar-toggler d-md-none collapsed mb-3" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+       
+        <div class="col-12 col-md-5 col-lg-8 d-flex align-items-center justify-content-md-end mt-3 mt-md-0">
+            <div class="mr-3 mt-1">
+                <span class="fw-bold"></span>
+            </div>
+            <div>
+                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+                    <i class="bi bi-person fs-5"></i>
+                </a>
+                <ul th:if="${not_auth}" class="dropdown-menu" aria-labelledby="signDropdown">
+                    <li><a class="dropdown-item" href="/registration">Регистрация</a></li>
+                    <li><a class="dropdown-item" href="/login">Вход</a></li>
+                </ul>
+                <ul th:if="${auth}" class="dropdown-menu" aria-labelledby="signDropdown">
+                    <li>&nbsp;<span th:text="${auth_user.username}"></span><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="/user/myRoom">Настройки</a></li>
+                    <li><a class="dropdown-item" href="/logout">Выход</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<main class="container">
+
+    <h1 class="title-section">
+        <span class="position-relative">Личный кабинет</span>
+    </h1>
+
+
+<div class="d-flex">
+<span class="fw-bold fs-5 align-items-center">Имя пользователя:</span>
+<p th:text="${user.username}" class="ms-2 fs-5">Aaa21</p>
+</div>
+<div class="d-flex">
+<span class="fw-bold fs-5">Имя:</span>
+<p th:text="${user.name}" class="ms-2 fs-5">Max</p>
+</div>
+<div class="d-flex">
+<span class="fw-bold fs-5">Фамиия:</span>
+<p th:text="${user.surname}" class="ms-2 fs-5">Sulaev</p>
+</div>
+<div class="d-flex"> 
+    <span class="fw-bold fs-5">Пароль:</span>
+<p th:text="${user.password}" class="ms-2 fs-5">11192</p>
+</div>
+<div class="d-flex">
+    <span class="fw-bold fs-5">Почта:</span>
+<p th:text="${user.email}" class="ms-2 fs-5">dima@gmail.com</p>
+</div>
+<div class="d-flex">
+    <span class="fw-bold fs-5">Номер:</span>
+<p th:text="${user.phoneNumber}" class="ms-2 fs-5">+48 2283221488</p>
+</div>
+
+<a th:href="@{/user/{id}/(id=${user.id})}" class="btn btn-primary">Редактировать</a>
+</main>
+</body>
+</html>

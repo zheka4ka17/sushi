@@ -43,7 +43,7 @@ public class OrderController {
         model.addAttribute("newOrder",newOrder );
 
 
-        return "order/current";
+        return "current";
     }
 
     @PostMapping("/current")
@@ -63,7 +63,7 @@ public class OrderController {
 //        order.setCreated(LocalDateTime.now());
       //  System.out.println(newOrder);
         orderService.save(newOrder);
-        return "order/finish-order";
+        return "finish-order";
     }
 
     @GetMapping("/deleteFromOrder/{id}")
