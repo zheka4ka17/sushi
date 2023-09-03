@@ -1,6 +1,8 @@
 package ru.vitstep.sushi.service;
 
+import org.hibernate.annotations.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.vitstep.sushi.model.Order;
@@ -8,6 +10,7 @@ import ru.vitstep.sushi.repository.OrderRepository;
 import ru.vitstep.sushi.repository.ProductRepository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class OrderService {
@@ -30,10 +33,19 @@ public class OrderService {
 
 
     public List<Order> findAll(){
-    return orderRepository.findAll();
+
+        return orderRepository.findAll();
+
+
     }
 
     public Order findById(Long id){
-    return orderRepository.findById(id).orElse(null);
+    try {
+        return orderRepository.findById(id).orElse(null);
+    }
+    catch (Exception e){
+        throw new NoSuchElementException("we dont have order with this id");
+    }
+
     }
 }
