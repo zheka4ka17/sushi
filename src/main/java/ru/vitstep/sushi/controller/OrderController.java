@@ -12,7 +12,10 @@ import ru.vitstep.sushi.security.UserDetail;
 import ru.vitstep.sushi.service.OrderService;
 import ru.vitstep.sushi.service.ProductService;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
 
 @Controller
 @RequestMapping("order")
@@ -63,6 +66,11 @@ public class OrderController {
 //        order.setCreated(LocalDateTime.now());
       //  System.out.println(newOrder);
         orderService.save(newOrder);
+        order.setCreated(null);
+        order.setProducts(new ArrayList<>(Collections.emptyList()));
+        order.setFullPrice(BigDecimal.valueOf(0));
+
+
         return "finish-order";
     }
 

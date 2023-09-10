@@ -14,7 +14,7 @@
     <header class="container-xl header">
         <!-- Logo block -->
         <div class="header__logo">
-            <a href="/static" class="navbar-brand">
+            <a href="/" class="navbar-brand">
                 <img src="/images/logo/logo.png" alt='Суши-Бар "Киото"' id="logoImg">
             </a>
         </div>
@@ -113,36 +113,44 @@
                           <div class="form-outline">
                             <input type="text" id="name" th:field="*{name}" class="form-control" />
                             <label class="form-label"  for="name">Имя</label>
+                              <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name  Error</div>
+
                           </div>
                         </div>
                         <div class="col-md-6 mb-4">
                           <div class="form-outline">
                             <input type="text" id="lastName" th:field="*{surname}" class="form-control" />
                             <label class="form-label"  for="lastName">Фамилия</label>
+                              <div style="color:red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname  Error</div>
                           </div>
                         </div>
                       </div>
         
                      
                       <div class="form-outline mb-4">
-                        <input type="number" th:field="*{phoneNumber}" id="number" class="form-control" />
-                        <label class="form-label" for="number">Номер телефона</label>
+                        <input type="text" th:field="*{phoneNumber}" id="number" class="form-control" placeholder="Введите 9 цифр номера телефона" />
+                        <label class="form-label" for="number" >Номер телефона</label>
+                          <div style="color:red" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">PhoneNumber  Error</div>
                       </div>
         
                       
                       <div class="form-outline mb-4">
                         <input type="email" id="email" th:field="*{email}" class="form-control" />
                         <label class="form-label" for="email">Почта</label>
+                          <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email  Error</div>
                       </div>
                       
                       <div class="form-outline mb-4">
                         <input type="text" th:field="*{username}" id="nickname" class="form-control" />
                         <label class="form-label"  for="nickname">Имя пользователя</label>
+                          <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username  Error</div>
+
                       </div>
 
                       <div class="form-outline mb-4">
                         <input type="password" th:field="*{password}" id="password" class="form-control" />
                         <label class="form-label" for="password">Пароль</label>
+                          <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password  Error</div>
                       </div>
                       
                       <button type="submit" class="btn btn-primary btn-block mb-4">

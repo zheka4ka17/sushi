@@ -33,6 +33,17 @@ public class UserService {
     userRepository.delete(userRepository.findById(id).get());
     }
 
+    public User findByEmail(String email){
+    return userRepository.findByEmail(email).orElse(null);
+    }
+    public User findByUsername(String username){
+        return userRepository.findByUsername(username).orElse(null);
+    }
+    public User findByPhoneNumber(int phoneNumber){
+        return userRepository.findByPhoneNumber(phoneNumber).orElse(null);
+    }
+
+
     public void update(Long id, User updatedUser){
     updatedUser.setId(id);
     userRepository.save(updatedUser);

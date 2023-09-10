@@ -116,7 +116,7 @@
             <div th:each="product :${order.products}">
                 
                 <a th:href="@{/menu/{id}(id=${product.getId()})}" href="#" class="text-decoration-none text-black">
-                    <img th:src="${product.image}" >
+<!--                    <img th:src="${product.image}" >-->
                     <span th:text="${product.title + ', ' + product.description+ ', ' +product.volume+ ', ' +product.price}">Филадельфия, Лосось, сыр сливочный, огурец, 1, 400</span>
                 
                 </a>
@@ -126,14 +126,14 @@
             
             <div class="form-outline mb-4">
                 <label for="address">Введите адрес</label>
-                <input type="text" th:field="*{address}" id="address" name="address" class="form-control">
+                <input type="text" th:field="*{address}" id="address" name="address" class="form-control" placeholder="Улица, дом/квартира, квартира(если есть)">
                 </div>
                 <div class="form-outline mb-4">
                 <label for="address">Введите примечания к заказу</label>
-                <input type="text" th:field="*{info}" id="info" name="info" class="form-control">
+                <input type="text" th:field="*{info}" id="info" name="info" class="form-control" placeholder="Введите дополнительную информацию о вашем заказе">
                 </div>
             <div class="d-flex align-items-end flex-column">
-            <p th:text="${newOrder.fullPrice}" class="fw-bold">2000р</p>
+            <p th:text="${order.fullPrice}+'р'" class="fw-bold">2000р</p>
             
             <button type="submit" class="btn btn-primary px-4">Заказать</button>
         </div>

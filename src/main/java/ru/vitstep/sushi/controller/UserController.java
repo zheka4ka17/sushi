@@ -30,6 +30,10 @@ public class UserController {
 
     @GetMapping("/{id}")
     public String edit(Model model, @PathVariable("id") Long id) {
+        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+        UserDetail userDetail= (UserDetail) authentication.getPrincipal();
+        User user=userDetail.getUser();
+        model.addAttribute("user1", user);
         model.addAttribute("user", userService.findById(id));
         return "edit_user";
     }

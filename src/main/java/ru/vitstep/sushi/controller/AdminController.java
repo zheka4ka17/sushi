@@ -77,9 +77,12 @@ public class AdminController {
 
     @GetMapping("product/{id}/edit")
     public String editProduct(Model model, @PathVariable("id") Long id) {
+
         model.addAttribute("product", productService.findById(id));
         model.addAttribute("types",typeService.findAll());
-        // model.addAttribute("roles", Role.values());
+        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+        UserDetail userDetail= (UserDetail) authentication.getPrincipal();
+        model.addAttribute("user",userDetail.getUser());
         return "edit_product";
     }
 
@@ -113,6 +116,7 @@ public class AdminController {
         Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
         UserDetail userDetail= (UserDetail) authentication.getPrincipal();
         model.addAttribute("user",userDetail.getUser());
+
         return "all_order";
     }
 
