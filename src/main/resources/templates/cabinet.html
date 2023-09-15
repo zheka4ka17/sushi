@@ -74,6 +74,28 @@
 </div>
 
 <a th:href="@{/user/{id}/(id=${user.id})}" class="btn btn-primary">Редактировать</a>
+
+    <h3 class="title-section fs-4 mt-5">
+        <span class="position-relative">Список заказов</span>
+    </h3>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Время</th>
+            <th scope="col">Стоимость</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order: ${user.orders}">
+            <td th:text="${order.id}">11</td>
+            <td th:text="${order.created}">12:14 19.12.2025</td>
+            <td th:text="${order.fullPrice}">19999 USD</td>
+            <td><a th:href="@{/order/{id}/show(id=${order.id})}" href="">Подробнее</a></td>
+        </tr>
+        </tbody>
+    </table>
 </main>
 </body>
 </html>

@@ -7,18 +7,21 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.vitstep.sushi.model.User;
 import ru.vitstep.sushi.repository.UserRepository;
-import ru.vitstep.sushi.security.UserDetail;
 
 import java.util.Optional;
 
 @Service
 public class UserDetailService implements UserDetailsService {
 
-    private  UserRepository userRepository;
-@Autowired
-    public void setUserRepository(UserRepository userRepository) {
+    private final UserRepository userRepository;
+    @Autowired
+    public UserDetailService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
+
+
+
 
 
     @Override

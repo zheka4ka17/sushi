@@ -117,7 +117,7 @@
                 
                 <a th:href="@{/menu/{id}(id=${product.getId()})}" href="#" class="text-decoration-none text-black">
 <!--                    <img th:src="${product.image}" >-->
-                    <span th:text="${product.title + ', ' + product.description+ ', ' +product.volume+ ', ' +product.price}">Филадельфия, Лосось, сыр сливочный, огурец, 1, 400</span>
+                    <span th:text="${product.title +' ' +product.price}">Филадельфия, Лосось, сыр сливочный, огурец, 1, 400</span>
                 
                 </a>
                 <a th:href="@{/order/deleteFromOrder/{id}(id=${product.getId()})}" href="#" class="ms-4 text-decoration-none text-danger"><i class="bi bi-trash-fill"></i></a>

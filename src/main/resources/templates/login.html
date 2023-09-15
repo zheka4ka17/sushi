@@ -106,24 +106,35 @@
     <!-- Breadcrumbs -->
 
     <div class="card-body px-4 py-5 px-md-5 w-50 mx-auto">
-      <form method="POST" th:action="@{/login}" id="loginForm">
+      <form method="POST" th:action="@{/login}" id="loginForm" class="needs-validation" novalidate>
 
 
 
-        <div class="form-outline mb-4">
-          <input type="text" id="username" name="username" class="form-control" />
+        <div class="form-outline mb-4 position-relative has-validation">
+
+          <input type="text" id="username" name="username" class="form-control" required/>
           <label class="form-label" for="username">Имя пользователя</label>
+          <div class="invalid-tooltip">
+            Имя пользователя не может быть пустым!
+          </div>
         </div>
 
-        <div class="form-outline mb-4">
-          <input type="password" id="password" name="password" class="form-control" />
+        <div class="form-outline mb-4 position-relative has-validation">
+
+          <input type="password" id="password" name="password" class="form-control" required/>
           <label class="form-label" for="password">Пароль</label>
+          <div class="invalid-tooltip">
+            Введите пароль!
+          </div>
         </div>
 
         <!-- Submit button -->
         <button type="submit" class="btn btn-primary btn-block mb-4">
           Вход
         </button>
+        <a  class="btn btn-primary btn-block mb-4" href="/registration">
+          Регистрация
+        </a>
 
 
       </form>

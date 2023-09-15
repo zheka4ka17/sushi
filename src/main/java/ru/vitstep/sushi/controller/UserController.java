@@ -41,6 +41,7 @@ public class UserController {
     @PostMapping("/{id}")
     public String update(@ModelAttribute("user") /*@Valid*/ User user, //BindingResult bindingResult,
                          @PathVariable("id") Long id) {
+        user.setRole(roleService.findByName("ROLE_USER"));
         userService.update(id, user);
         return "redirect:/";
     }

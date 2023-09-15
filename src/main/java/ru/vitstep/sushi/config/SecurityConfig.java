@@ -18,9 +18,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
 
-@Autowired
-    public SecurityConfig(@Lazy UserDetailsService userDetailsService) {
-    this.userDetailsService = userDetailsService;
+    @Autowired
+    public SecurityConfig(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
 
 
     }
@@ -40,9 +40,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/login", "/menu/**","/images","/registration","/","/kioto","/delivery_info","/contacts").permitAll()
-                .antMatchers("/user/**", "/order/**").access("hasRole('ROLE_USER')")
-                .antMatchers("/admin/**","/user/**","/order/**").access("hasRole('ROLE_ADMIN')")
-//                .anyRequest().authenticated()
+                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/user/**","/order/**").access("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
+//
 
 
                 .and()

@@ -61,19 +61,19 @@ public class AdminController {
         return "admin_products";
     }
 
-//    @GetMapping("/new-product")
-//    public String newProduct(Model model){
-//        model.addAttribute("newProduct", new Product());
-//        model.addAttribute("types",typeService.findAll());
-//        return "menu/new_product";
-//    }
-//
-//    @PostMapping("/new-product")
-//    public String create(@ModelAttribute("newProduct") Product product){
-//        System.out.println(product);
-//        productService.save(product);
-//        return "redirect:/admin/product";
-//    }
+    @GetMapping("/new-product")
+    public String newProduct(Model model){
+        model.addAttribute("newProduct", new Product());
+        model.addAttribute("types",typeService.findAll());
+        return "new_product";
+    }
+
+    @PostMapping("/new-product")
+    public String create(@ModelAttribute("newProduct") Product product){
+        System.out.println(product);
+        productService.save(product);
+        return "redirect:/admin";
+    }
 
     @GetMapping("product/{id}/edit")
     public String editProduct(Model model, @PathVariable("id") Long id) {

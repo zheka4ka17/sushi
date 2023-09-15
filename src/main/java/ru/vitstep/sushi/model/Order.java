@@ -28,9 +28,9 @@ public class Order {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @NotNull
     private User user;
-    @Min(value = 0, message = "price should be more than 0")
+
     private BigDecimal fullPrice;
-    @NotEmpty(message = "Address should be not empty")
+    // @NotEmpty(message = "Address should be not empty")
     private String address;
 
     public Order() {
@@ -49,7 +49,7 @@ public class Order {
 
     public void addProduct(Product product){
         products.add(product);
-        BigDecimal price = new BigDecimal(1);
+        BigDecimal price = new BigDecimal(0);
 //        for (Product prod : products)
 //            price=price.add(prod.getPrice());
         this.fullPrice=this.fullPrice.add(product.getPrice());

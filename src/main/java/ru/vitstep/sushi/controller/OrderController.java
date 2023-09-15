@@ -12,6 +12,7 @@ import ru.vitstep.sushi.security.UserDetail;
 import ru.vitstep.sushi.service.OrderService;
 import ru.vitstep.sushi.service.ProductService;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class OrderController {
 
     @GetMapping("/current")
     public String getCurrent(Model model ){
-        Order order=(Order)model.getAttribute("order");
+       @Valid Order order=(Order)model.getAttribute("order");
         //System.out.println(order+ "veVADFBSFG");
         if (order == null || order.getProducts().isEmpty()) {
             return "redirect:/";
@@ -72,6 +73,13 @@ public class OrderController {
 
 
         return "finish-order";
+    }
+
+    @GetMapping("{id}/show")
+    public String showOrder(@PathVariable("id") Long id, Model model){
+        model.addAttribute("order",orderService.findById(id));
+        model.addAttribute("user", orderService.findById(id).getUser());
+        return "show_order";
     }
 
     @GetMapping("/deleteFromOrder/{id}")
